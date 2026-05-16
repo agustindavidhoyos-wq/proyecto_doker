@@ -1,0 +1,41 @@
+services:
+  db:
+    image: mysql:8
+    container_name: tp_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: tp_clase
+      MYSQL_USER: alumno
+      MYSQL_PASSWORD: 47543
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: tp_phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  app:
+    build: .
+    container_name: tp_app
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: alumno
+      DB_PASS: 47543
+      DB_NAME: tp_clase
+
+volumes:
+  db-data:
+
