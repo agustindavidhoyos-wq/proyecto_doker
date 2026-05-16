@@ -17,7 +17,7 @@ cur.execute('''
  )
 ''')
 cur.execute('INSERT INTO alumnos (nombre, nota) VALUES (%s, %s)',
- ('Ana', 9.5))
+ ('Agus', 8.5))
 conn.commit()
 cur.execute('SELECT id, nombre, nota FROM alumnos')
 for fila in cur.fetchall():
